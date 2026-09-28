@@ -1,0 +1,23 @@
+File Explorer for Windows helps you find files with the same name across your folders and drives and compare their text contents in one organized workspace.
+
+Enter a root folder path in Settings, such as C:\Users\Name\Documents or G:\My Drive, and scan it together with all of its subfolders. Results appear while the scan runs and are grouped by extension and file name, regardless of letter case, making it easier to locate copied, related, or differently configured versions of a file. A scan runs for up to two minutes and keeps the results found before the limit is reached.
+
+Key features:
+
+- Scan any readable folder or drive and its subfolders
+- See results as they are found and keep partial results from large folder trees
+- Filter discovered files by extension and remember your choices
+- Group files by file name, ignoring letter case
+- View the location of every matching file
+- Compare text contents in a dedicated workspace
+- Combine identical content while preserving every source path
+- View distinct versions side by side in full screen
+- Print comparisons or save them as PDF
+- Resize or collapse workspace panes to fit your window
+- Choose System, Dark, or Light display mode
+- Save your root folder, display mode, and extension preferences
+- Access built-in Help and a contact form
+
+File Explorer is useful for reviewing configuration files, source files, data files, and other text documents stored across projects or directory trees. Select a matching group, compare each version, and print or save a PDF when you need to share or keep the results.
+
+Scanning, comparison, and printing happen on your PC. File Explorer can scan only folders your Windows account is allowed to read; folders it cannot open are skipped. File paths and contents are not sent through the contact form. The optional Information form requires an internet connection and sends the contact details, question, and app diagnostics shown in the app when you submit it.
