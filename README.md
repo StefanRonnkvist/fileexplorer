@@ -119,13 +119,21 @@ submit it.
 
 Project layout:
 
-- `lib/main.dart` – app shell, settings, and the Discover workspace
-- `lib/features/file_discovery/` – recursive file scanner
-- `lib/features/file_comparison/` – comparison model, full-screen view, and
-	PDF builder
+- `lib/main.dart` – entry point that launches the app
+- `lib/app/` – app shell: root widget, tabbed home page, splash, constants
+- `lib/core/` – shared path utilities and resizable pane widgets
+- `lib/features/file_discovery/` – recursive scanner, grouping logic, and the
+	Discover workspace (scan control, extensions, file groups)
+- `lib/features/file_comparison/` – comparison model and controller,
+	full-screen view, and PDF builder
+- `lib/features/settings/` – persisted settings storage, controller, and dialog
+- `lib/features/contact/` – Information contact form
 - `lib/features/help/` – Help tab
-- `lib/contact/` – Information contact form
 - `store_listing/` – Microsoft Store descriptions
+- `tool/` – PowerShell scripts for releases and maintenance
+
+Each feature folder follows the same shape: `models/` and `services/` for pure
+logic, `controllers/` for state, and `widgets/` for the user interface.
 
 Run static analysis and tests with:
 
@@ -142,5 +150,5 @@ dart run msix:create --build-windows=false
 ```
 
 MSIX packaging is configured under `msix_config` in `pubspec.yaml`. The
-workspace also includes VS Code tasks and PowerShell scripts for release builds
-and maintenance.
+workspace also includes VS Code tasks and PowerShell scripts under `tool/`
+for release builds and maintenance.

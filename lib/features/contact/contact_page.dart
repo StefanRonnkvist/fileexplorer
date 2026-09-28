@@ -5,59 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 
-/// Creates a contact form whose submission endpoint is based on [serverUrl].
-///
-/// The URL may identify either a server directory or `contact.php` itself.
-/// Invalid absolute URLs are rejected before a widget is created.
-Widget createContactPage({
-  required String serverUrl,
-  Map<String, String> headers = const {},
-}) {
-  final Uri? serverUri = Uri.tryParse(serverUrl);
-
-  if (serverUri == null || !serverUri.hasScheme || !serverUri.hasAuthority) {
-    throw ArgumentError.value(
-      serverUrl,
-      'serverUrl',
-      'A valid server URL is required.',
-    );
-  }
-
-  return ContactPage(
-    serverUri: _buildContactEndpoint(serverUri),
-    additionalHeaders: headers,
-  );
-}
-
-Uri _buildContactEndpoint(Uri baseUri) {
-  final List<String> baseSegments = baseUri.pathSegments
-      .where((String segment) => segment.isNotEmpty)
-      .toList(growable: true);
-
-  if (baseSegments.isNotEmpty && baseSegments.last == 'contact.php') {
-    return baseUri;
-  }
-
-  // Uri.replace handles slash joining and escaping without string-based URL
-  // concatenation.
-  baseSegments.add('contact.php');
-
-  return baseUri.replace(pathSegments: baseSegments);
-}
-
 class ContactPage extends StatefulWidget {
-  const ContactPage({
-    super.key,
-    required this.serverUri,
-    this.additionalHeaders = const {},
-    this.showAppBar = true,
-    this.wrapInScaffold = true,
-  });
+  const ContactPage({super.key, required this.serverUri});
 
   final Uri serverUri;
-  final Map<String, String> additionalHeaders;
-  final bool showAppBar;
-  final bool wrapInScaffold;
 
   @override
   State<ContactPage> createState() => _ContactPageState();
@@ -226,7 +177,6 @@ class _ContactPageState extends State<ContactPage> {
               'Content-Type':
                   'application/x-www-form-urlencoded; charset=UTF-8',
               'Accept': 'text/html, text/plain, application/json, */*',
-              ...widget.additionalHeaders,
             },
             body: requestData,
           )
@@ -402,7 +352,7 @@ class _ContactPageState extends State<ContactPage> {
     final ColorScheme colors = Theme.of(context).colorScheme;
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
-    final Widget content = SafeArea(
+    return SafeArea(
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -605,17 +555,6 @@ class _ContactPageState extends State<ContactPage> {
           ),
         ),
       ),
-    );
-
-    if (!widget.wrapInScaffold) {
-      return content;
-    }
-
-    return Scaffold(
-      appBar: widget.showAppBar
-          ? AppBar(title: const Text('Contact Us'))
-          : null,
-      body: content,
     );
   }
 }

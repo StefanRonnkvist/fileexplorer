@@ -2,12 +2,11 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Microsoft Store",
+      "label": "Google Store",
       "dependsOrder": "sequence",
       "dependsOn": [
         "Pub Update All",
-        "Flutter: Version Bump",
-        "Build All Release Targets",
+        "Build All Release Targets"
       ],
       "group": "build",
       "problemMatcher": []
@@ -16,10 +15,10 @@
       "label": "Pub Update All",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "flutter: pub upgrade",
-        "Flutter: Pub Upgrade Major Versions",
+        "Flutter: Pub Upgrade",
+        "Flutter: Pub Upgrade Major",
         "Flutter: Pub Outdated",
-        "Flutter: Pub Get",
+        "Flutter: Pub Get"
       ],
       "group": "build",
       "problemMatcher": []
@@ -28,8 +27,11 @@
       "label": "Build All Release Targets",
       "dependsOrder": "sequence",
       "dependsOn": [
+        "Preclean Android Release Locks",
         "Flutter: Version Bump",
-        "Build Release Windows",
+        "Build Release APK",
+        "Build Release App Bundle",
+        "Build Release Web",
         "Build Release MSIX"
       ],
       "group": {
@@ -80,11 +82,62 @@
       "problemMatcher": []
     },
     {
+      "label": "Preclean Android Release Locks",
+      "type": "shell",
+      "command": "pwsh",
+      "dependsOn": [
+        "Flutter: Fix Apple Ephemeral Packages"
+      ],
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tool/preclean_android_release_locks.ps1"
+      ],
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Release APK",
+      "type": "shell",
+      "command": "flutter build apk --release",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Release App Bundle",
+      "type": "shell",
+      "command": "flutter build appbundle --release",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Release Web",
+      "type": "shell",
+      "command": "flutter build web --release",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Build Release Windows",
       "type": "shell",
       "command": "flutter build windows --release",
-      "dependsOn": [
-      ],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -107,6 +160,20 @@
       "problemMatcher": []
     },
     {
+      "label": "Flutter: Fix Apple Ephemeral Packages",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tool/cleanup_ephemerals.ps1",
+        "-RunPubGet"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Flutter: Version Bump",
       "type": "shell",
       "command": "pwsh",
@@ -115,10 +182,10 @@
         "-ExecutionPolicy",
         "Bypass",
         "-File",
-        "scripts/bump-version.ps1"
+        "tool/bump_version.ps1"
       ],
       "group": "build",
       "problemMatcher": []
-    },
+    }
   ]
 }
