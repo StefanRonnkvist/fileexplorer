@@ -1,7 +1,7 @@
 name: fileexplorer
 description: "Windows desktop app for finding files with matching names and comparing their contents."
 publish_to: 'none'
-version: 0.1.24+25
+version: 0.1.25+26
 
 environment:
   sdk: ^3.12.2
@@ -25,7 +25,7 @@ msix_config:
   display_name: fileexplorer
   publisher_display_name: fileexplorer
   identity_name: com.stefanronnkvist.fileexplorer
-  msix_version: 0.1.24.25
+  msix_version: 0.1.25.26
   architecture: x64
   build_windows: false
   sign_msix: false
