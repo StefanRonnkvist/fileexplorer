@@ -54,7 +54,11 @@ if (-not $msixUpdated) {
     $lines += "  msix_version: $newMsixVersion"
 }
 
-Set-Content -Path $pubspecPath -Value ($lines -join [Environment]::NewLine)
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+# -join alone leaves no trailing newline, which strips the file's final newline on
+# every run and shows up as a spurious one-line removal in diffs.
+$pubspecText = ($lines -join [Environment]::NewLine) + [Environment]::NewLine
+[System.IO.File]::WriteAllText($pubspecPath, $pubspecText, $utf8NoBom)
 
 $androidPropsPath = Join-Path $root 'android/local.properties'
 if (Test-Path $androidPropsPath) {
@@ -81,7 +85,8 @@ if (Test-Path $androidPropsPath) {
         $androidLines += "flutter.versionCode=$build"
     }
 
-    Set-Content -Path $androidPropsPath -Value ($androidLines -join [Environment]::NewLine)
+    $androidText = ($androidLines -join [Environment]::NewLine) + [Environment]::NewLine
+    [System.IO.File]::WriteAllText($androidPropsPath, $androidText, $utf8NoBom)
 }
 
 $androidVersionName = "$major.$minor.$newPatch"
@@ -96,12 +101,15 @@ Write-Host "MSIX version: $msixVersion"
 if (-not $NoGit) {
     $gitRoot = git -C $root rev-parse --show-toplevel 2>$null
     if ($LASTEXITCODE -eq 0 -and $gitRoot) {
-        $gitStatus = git -C $root status --short
-        if ($gitStatus) {
-            git -C $root add pubspec.yaml android/local.properties
-            if ($LASTEXITCODE -eq 0) {
-                git -C $root commit -m "Bump app version to $major.$minor.$newPatch+$build" --no-verify
-            }
+        # android/local.properties is gitignored, so `git add` on it fails outright and
+        # takes the pubspec.yaml stage down with it. Only stage files git will accept.
+        $staged = @('pubspec.yaml')
+        git -C $root add -- $staged
+        if ($LASTEXITCODE -eq 0) {
+            git -C $root commit -m "Bump app version to $major.$minor.$newPatch+$build" --no-verify
+        }
+        else {
+            Write-Warning "Failed to stage version files; skipping commit."
         }
     }
 }
