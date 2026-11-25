@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Animated startup surface shown while [MainApp] completes its splash delay.
 class SplashScreen extends StatefulWidget {

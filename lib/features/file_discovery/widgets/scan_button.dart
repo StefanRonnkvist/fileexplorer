@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Starts a scan and shows progress while one is running.
 class ScanButton extends StatelessWidget {

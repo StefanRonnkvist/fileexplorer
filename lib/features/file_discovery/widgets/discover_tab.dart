@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../core/widgets/resizable_pane.dart';
 import '../../file_comparison/controllers/comparison_controller.dart';

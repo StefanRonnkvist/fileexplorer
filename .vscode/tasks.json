@@ -86,7 +86,7 @@
     {
       "label": "Preclean Android Release Locks",
       "type": "shell",
-      "command": "pwsh",
+      "command": "powershell",
       "dependsOn": [
         "Flutter: Fix Apple Ephemeral Packages"
       ],
@@ -173,13 +173,13 @@
     {
       "label": "Flutter: Fix Apple Ephemeral Packages",
       "type": "shell",
-      "command": "pwsh",
+      "command": "powershell",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
         "Bypass",
         "-File",
-        "tool/cleanup_ephemerals.ps1",
+        "scripts/cleanup-ephemerals.ps1",
         "-RunPubGet"
       ],
       "problemMatcher": []
@@ -187,13 +187,13 @@
     {
       "label": "Flutter: Version Bump",
       "type": "shell",
-      "command": "pwsh",
+      "command": "powershell",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
         "Bypass",
         "-File",
-        "tool/bump_version.ps1"
+        "scripts/bump-version.ps1"
       ],
       "group": "build",
       "problemMatcher": []
@@ -202,7 +202,7 @@
       "label": "Docs: Audit Store Listing, Help and README",
       "detail": "Checks that store_listing/, the Help tab and README.md describe the app it ships from.",
       "type": "shell",
-      "command": "pwsh",
+      "command": "powershell",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
@@ -215,6 +215,25 @@
         "reveal": "always",
         "panel": "shared",
         "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Git: Commit and Push All",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/git-commit-push.ps1",
+        "-Message",
+        "Update project"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
       },
       "problemMatcher": []
     }

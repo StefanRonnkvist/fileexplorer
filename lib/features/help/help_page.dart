@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// In-app instructions for the primary discovery and comparison workflow.
 class HelpPage extends StatelessWidget {

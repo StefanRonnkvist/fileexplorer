@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Width of a pane while it is collapsed to its expand button.
 const double collapsedPaneWidth = 48;

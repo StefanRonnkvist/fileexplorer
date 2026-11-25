@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../features/file_comparison/controllers/comparison_controller.dart';
 import '../features/file_discovery/controllers/discovery_controller.dart';
