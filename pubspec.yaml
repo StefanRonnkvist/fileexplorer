@@ -1,7 +1,7 @@
 name: fileexplorer
 description: "Windows desktop app for finding files with matching names and comparing their contents."
 publish_to: 'none'
-version: 0.1.25+26
+version: 0.1.26+27
 
 environment:
   sdk: ^3.12.2
@@ -15,17 +15,19 @@ dependencies:
   printing: ^5.15.0
   shared_preferences: ^2.5.5
 
+  material_ui: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   msix: ^3.18.0
 
+  csv_plus: any
 msix_config:
   display_name: fileexplorer
   publisher_display_name: fileexplorer
   identity_name: com.stefanronnkvist.fileexplorer
-  msix_version: 0.1.25.26
+  msix_version: 0.1.26.27
   architecture: x64
   build_windows: false
   sign_msix: false
